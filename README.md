@@ -59,3 +59,31 @@ ORDER BY total_amt_usd
 LIMIT 20;
 ```
 
+## 4. ORDER BY parte ||
+
+1. Escreva uma consulta que exiba o ID do pedido, o ID da conta e o valor total em dólares de todos os pedidos, classificados primeiro pelo ID da conta (em ordem crescente) e depois pelo valor total em dólares (em ordem decrescente).
+
+```
+SELECT id, account_id, total_amt_usd
+FROM orders
+ORDER BY account_id, total_amt_usd DESC;
+```
+
+2. Agora escreva uma consulta que exiba novamente o ID do pedido, o ID da conta e o valor total em dólares de cada pedido, mas desta vez classificado primeiro pelo valor total em dólares (em ordem decrescente) e depois pelo ID da conta (em ordem crescente).
+
+```
+SELECT id, account_id, total_amt_usd
+FROM orders
+ORDER BY total_amt_usd DESC, account_id;
+```
+
+3. Compare os resultados dessas duas consultas acima. Como os resultados são diferentes quando você alterna a coluna que classifica primeiro?
+
+```
+Na consulta nº 1, todos os pedidos para cada ID de conta são agrupados e, em cada um desses agrupamentos, os pedidos aparecem do maior para o menor valor do pedido.
+Na consulta nº 2,como você classificou primeiro pelo valor total em dólares, os pedidos aparecem do maior para o menor, independentemente do ID da conta de onde vieram.
+Em seguida, eles são classificados por ID da conta.
+```
+
+
+
