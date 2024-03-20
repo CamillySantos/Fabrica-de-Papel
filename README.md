@@ -85,5 +85,37 @@ Na consulta nº 2,como você classificou primeiro pelo valor total em dólares, 
 Em seguida, eles são classificados por ID da conta.
 ```
 
+## 5. WHERE
+
+1. Extrai as primeiras 5 linhas e todas as colunas da tabela de `orders`(pedidos) que possuem um valor em dólares `gloss_amt_usd` maior ou igual a 1.000.
+
+```
+SELECT *
+FROM orders
+WHERE gloss_amt_usd >= 1000
+LIMIT 5;
+```
+
+3. Extrai as primeiras 10 linhas e todas as colunas da tabela de `orders` (pedidos) que tenham `total_amt_usd` menos de 500.
+
+```
+SELECT *
+FROM orders 
+WHERE total_amt_usd < 500
+LIMIT 10;
+```
+
+## 6. WHERE com não números
+
+Filtre a tabela de contas para incluir a empresa `name`, `website` e o principal ponto de contato `(primary_poc)` apenas da empresa Exxon Mobil na tabela `accounts`(contas).
+
+```
+SELECT name, website, primary_poc
+FROM accounts
+WHERE name = 'Exxon Mobil';
+```
+
+## 7. Operadores Aritméticos + Colunas Derivadas
+
 
 
