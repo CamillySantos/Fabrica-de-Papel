@@ -117,5 +117,130 @@ WHERE name = 'Exxon Mobil';
 
 ## 7. Operadores Aritméticos + Colunas Derivadas
 
+1. Crie uma coluna que divida por `standard_amt_usd` para `standard_qty` encontrar o preço unitário do papel padrão para cada pedido. Limite os resultados aos primeiros 10 pedidos e inclua os campos `id` e `account_id`.
 
+```
+SELECT id, account_id, standard_amt_usd/standard_qty AS valor_padrao
+FROM orders
+LIMIT 10;
+```
 
+2. Escreva uma consulta que encontre a porcentagem da receita proveniente do papel de poster para cada pedido. Você precisará usar apenas as colunas que terminam com `_usd`. (Tente fazer isso sem usar a `total` coluna.) Exiba também os campos `id` e `account_id`.
+
+```
+SELECT id, account_id, poster_amt_usd/(standard_amt_usd + gloss_amt_usd + poster_amt_usd) AS papel_poster
+FROM orders
+LIMIT 10;
+```
+
+## 8. Operadores Lógicos
+
+### LIKE
+
+Use a tabela de `accounts` (contas) para encontrar
+
+1. Todas as empresas cujos nomes começam com 'C'.
+   
+```
+SELECT name
+FROM accounts
+WHERE name LIKE 'C%';
+```
+
+2. Todas as empresas cujos nomes contêm a string `'one'` em algum lugar do nome.
+
+```
+SELECT name
+FROM accounts
+WHERE name LIKE '%one%';
+```
+
+3. Todas as empresas cujos nomes terminam com `'s'`.
+
+```
+SELECT name
+FROM accounts
+WHERE name LIKE '%s';
+```
+
+### IN
+
+1. Use a tabela de `acconunts` (contas) para encontrar a conta `name`, `primary_poc` e `sales_rep_id` para Walmart, Target e Nordstrom
+
+```
+SELECT name, primary_poc, sales_rep_id
+FROM accounts
+WHERE name IN ('Walmart', 'Target', 'Nordstrom');
+```
+
+2. Utilize a tabela `web_events` para encontrar todas as informações sobre indivíduos que foram contatados através do `channel` (canal) de `organic` ou `adwords`.
+
+```
+SELECT *
+FROM web_events
+WHERE channel IN ('organic', 'adwords');
+```
+
+### NOT
+
+Podemos extrair todas as linhas que foram excluídas das consultas nos dois conceitos anteriores com nosso novo operador
+
+1. Use a tabela de `acconunts` (contas) para encontrar a conta `name`, `primary_poc` e `sales_rep_id` para Walmart, Target e Nordstrom
+
+```
+SELECT name, primary_poc, sales_rep_id
+FROM accounts
+WHERE name NOT IN ('Walmart', 'Target', 'Nordstrom');
+```
+
+2. Utilize a tabela `web_events` para encontrar todas as informações sobre indivíduos que foram contatados através do `channel` (canal) de `organic` ou `adwords`.
+
+```
+SELECT *
+FROM web_events
+WHERE channel NOT IN ('organic', 'adwords');
+```
+
+Use a tabela de `accounts` (contas) para encontrar
+
+1. Todas as empresas cujos nomes começam com 'C'.
+   
+```
+SELECT name
+FROM accounts
+WHERE name NOT LIKE 'C%';
+```
+
+2. Todas as empresas cujos nomes contêm a string `'one'` em algum lugar do nome.
+
+```
+SELECT name
+FROM accounts
+WHERE name NOT LIKE '%one%';
+```
+
+3. Todas as empresas cujos nomes terminam com `'s'`.
+
+```
+SELECT name
+FROM accounts
+WHERE name NOT LIKE '%s';
+```
+
+### AND e BETWEEN
+
+1. Escreva uma consulta que retorne todos os pedidos `orders` em que `standard_qty` é maior que 1000, `poster_qty` é 0 e `gloss_qty` é 0.
+
+```
+SELECT *
+FROM orders
+WHERE standard_qty > 1000 AND poster_qty = 0 AND gloss_qty = 0;
+```
+
+2. Utilizando a tabela de contas `accounts` , encontre todas as empresas cujos nomes não começam com 'C' e terminam com 's'.
+
+```
+SELECT *
+FROM accounts
+WHERE name NOT LIKE 'C%' AND name LIKE '%s';
+```
