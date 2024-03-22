@@ -1,6 +1,6 @@
-# Fabrica-de-Papel
+# Módulo 1 - Fábrica de Papel
 
-Registo das atividades do curso que estou realizando sobre SQL é relacionado a uma fábrica de papel onde estou aprendendo sobre diferentes formas de fazer pesquisas em Bancos de dados.
+Registo das atividades do curso que estou realizando sobre SQL é relacionado a uma fábrica de papel onde estou aprendendo sobre diferentes formas de fazer pesquisas em Bancos de dados e essas são as atividades do primeiro módulo.
 
 
 ## Material de aula
@@ -185,7 +185,7 @@ WHERE channel IN ('organic', 'adwords');
 
 Podemos extrair todas as linhas que foram excluídas das consultas nos dois conceitos anteriores com nosso novo operador
 
-1. Use a tabela de `acconunts` (contas) para encontrar a conta `name`, `primary_poc` e `sales_rep_id` para Walmart, Target e Nordstrom
+1. Use a tabela de `acconunts` (contas) para encontrar a conta `name`, `primary_poc` e `sales_rep_id` de todas as lojas, exceto Walmart, Target e Nordstrom.
 
 ```
 SELECT name, primary_poc, sales_rep_id
@@ -193,7 +193,7 @@ FROM accounts
 WHERE name NOT IN ('Walmart', 'Target', 'Nordstrom');
 ```
 
-2. Utilize a tabela `web_events` para encontrar todas as informações sobre indivíduos que foram contatados através do `channel` (canal) de `organic` ou `adwords`.
+2. Use a tabela `web_events` para encontrar todas as informações sobre indivíduos que foram contatados por qualquer método, exceto os métodos `organic` ou `adwords`.
 
 ```
 SELECT *
@@ -203,7 +203,7 @@ WHERE channel NOT IN ('organic', 'adwords');
 
 Use a tabela de `accounts` (contas) para encontrar
 
-1. Todas as empresas cujos nomes começam com 'C'.
+1. Todas as empresas cujos nomes não começam com 'C'.
    
 ```
 SELECT name
@@ -211,7 +211,7 @@ FROM accounts
 WHERE name NOT LIKE 'C%';
 ```
 
-2. Todas as empresas cujos nomes contêm a string `'one'` em algum lugar do nome.
+2. Todas as empresas cujos nomes não contêm a string `'one'` em algum lugar do nome.
 
 ```
 SELECT name
@@ -219,7 +219,7 @@ FROM accounts
 WHERE name NOT LIKE '%one%';
 ```
 
-3. Todas as empresas cujos nomes terminam com `'s'`.
+3. Todas as empresas cujos nomes não terminam com `'s'`.
 
 ```
 SELECT name
@@ -244,3 +244,49 @@ SELECT *
 FROM accounts
 WHERE name NOT LIKE 'C%' AND name LIKE '%s';
 ```
+
+3. Quando você usa o operador BETWEEN em SQL, os resultados incluem os valores dos seus endpoints ou não? Descubra a resposta a esta importante questão escrevendo uma consulta que exiba a data do pedido e `gloss_qty` os dados de todos **os pedidos** em que gloss_qty está entre 24 e 29. Em seguida, observe sua saída para ver se o operador BETWEEN incluiu os valores inicial e final ou não.
+
+```
+SELECT occurred_at, gloss_qty
+FROM orders
+WHERE gloss_qty BETWEEN 24 AND 29;
+```
+
+****
+
+4. Use a tabela **web_events** para encontrar todas as informações sobre indivíduos que foram contatados por meio dos canais `organic` ou `adwords` e que iniciaram suas contas em qualquer momento de 2016, classificados do mais recente para o mais antigo.
+
+```
+SELECT *
+FROM web_events
+WHERE channel IN ('organic', 'adwords') AND occurred_at BETWEEN '2016-01-01' AND '2017-01-01'
+ORDER BY occurred_at DESC;
+```
+## OR 
+
+1. Encontre a lista de IDs de `orders` (pedidos) `gloss_qty` em que ou `poster_qty` seja maior que 4.000. Inclua apenas o `id` campo na tabela resultante.
+
+```
+SELECT id
+FROM orders 
+WHERE gloss_qty > 4000 OR poster_qty > 4000;
+```
+
+2. Escreva uma consulta que retorne uma lista de `orders` (pedidos) em que the `standard_qty` é zero e ou `gloss_qty` é `poster_qty` maior que 1.000.
+
+```
+SELECT * 
+FROM orders 
+WHERE standard_qty = 0 AND (gloss_qty > 1000 OR poster_qty > 1000);
+```
+
+3. Encontre todos os nomes de empresas que começam com 'C' ou 'W' e o contato principal **contém** 'ana' ou 'Ana', mas não contém 'eana'.
+
+```
+SELECT * 
+FROM accounts 
+WHERE (name LIKE 'C%' OR name LIKE 'W%') AND ((primary_poc LIKE '%ana%' OR primary_poc LIKE '%Ana%') AND primary_poc NOT LIKE '%eana%');
+```
+
+
